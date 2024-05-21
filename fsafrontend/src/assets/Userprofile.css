@@ -1,0 +1,79 @@
+/* UserProfile.css */
+.user-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    padding: 20px;
+}
+
+.user-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-10px);
+}
+
+.user-avatar img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.user-info {
+    padding: 0 20px;
+}
+
+.user-name {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.user-email, .user-id {
+    font-size: 1rem;
+    color: #777;
+    margin: 5px 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .user-card {
+        padding: 15px;
+    }
+
+    .user-name {
+        font-size: 1.2rem;
+    }
+
+    .user-email, .user-id {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-avatar img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .user-name {
+        font-size: 1rem;
+    }
+
+    .user-email, .user-id {
+        font-size: 0.8rem;
+    }
+}
