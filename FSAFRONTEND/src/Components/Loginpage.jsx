@@ -52,7 +52,7 @@ export const Loginpage=()=>{
                         {/* <Link to="/Validate">Login</Link> */}
                         </form>
                         <div className="signup-link">
-                        <p>Don't have an account? <Link to="/Signuppage">Sign Up</Link></p>
+                        <p>Don't have an account? <Link style={{ textDecoration: 'none' }} to="/Signuppage">Sign Up</Link></p>
                         </div>
                         <p>{ message }</p>
                     </div>

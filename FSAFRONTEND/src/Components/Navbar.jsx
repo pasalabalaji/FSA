@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "../assets/Navbar.css"
 import Cookies from 'js-cookie';
 import {useNavigate} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
     const navigate = useNavigate();
@@ -27,13 +28,13 @@ export const Navbar = () => {
                 </div>
                 <ul className={isOpen ? 'nav-menu active' : 'nav-menu'}>
                     <li className="nav-item">
-                        <a href="/profile" className="nav-links">Profile</a>
+                        <Link to="/profile" style={{ textDecoration: 'none' }} className="nav-links">Profile</Link>
                     </li>
                     <li className="nav-item">
-                        <a href="/Userfiles" className="nav-links">Received Files</a>
+                        <Link to="/Userfiles" style={{ textDecoration: 'none' }} className="nav-links">Received Files</Link>
                     </li>
                     <li className="nav-item">
-                        <a href="/" className="nav-links" onClick={handleLogout}>Logout</a>
+                        <Link to="/" style={{ textDecoration: 'none' }} className="nav-links" onClick={handleLogout}>Logout</Link>
                     </li>
                 </ul>
             </div>

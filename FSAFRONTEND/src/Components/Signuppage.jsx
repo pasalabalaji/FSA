@@ -10,7 +10,7 @@ export const Signuppage=()=>{
         const [password,setPassword]=useState(" ");
         const [email,setEmail]=useState(" ");
         const [confirmpassword,setConfirmpassword]=useState(" ");
-        const [message,setMessage]=useState(" ");
+        const [message,setMessage]=useState("");
         const navigate = useNavigate();
         const [items, setItems] = useState([]);
 
@@ -40,10 +40,15 @@ export const Signuppage=()=>{
                     },
                 });
                 console.log(response.data);
-                Cookies.set("username", {username}, { expires: 7,
+                if(response.data==500){
+                    setMessage('Please signup with another email or try again...');
+                }
+                else{
+                    Cookies.set("username", {username}, { expires: 7,
                     sameSite: 'None', 
                     secure: true});
-                navigate('/Body');
+                    navigate('/Body');
+                }
             } catch (error) {
                 setMessage('Error sending items', error);
             }
@@ -101,11 +106,15 @@ export const Signuppage=()=>{
                         </div>
                         <button type="submit">Sign Up</button>
                         <div className="signup-link">
-                             <p>Already have an account? <Link to="/">Login</Link></p>
+                             <p>Already have an account? <Link style={{ textDecoration: 'none' }} to="/">Login</Link></p>
                         </div>
-                        <p>
-                            {message}
-                        </p>
+
+                        {message.length > 0 &&
+                            <div class="alert alert-warning" role="alert">
+                                {message}
+                            </div> 
+                        }
+    
                         </form>
                     </div>
                     </div>
