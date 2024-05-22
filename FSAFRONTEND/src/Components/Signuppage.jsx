@@ -34,7 +34,7 @@ export const Signuppage=()=>{
         const handleSubmit = async () => {
 
             try {
-                const response = await axios.post('http://localhost:8080/signup/save', items, {
+                const response = await axios.post('http://localhost:8080/signup/save', [username,password,email], {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -45,7 +45,7 @@ export const Signuppage=()=>{
                     secure: true});
                 navigate('/Body');
             } catch (error) {
-                console.error('Error sending items', error);
+                setMessage('Error sending items', error);
             }
         };
        const SignupUser=(event)=>{
@@ -71,10 +71,10 @@ export const Signuppage=()=>{
             else{
                         
                 setItems([username,password,email])
-                console.log("working...")
                 handleSubmit();
 
             }
+
 
        }
        return(

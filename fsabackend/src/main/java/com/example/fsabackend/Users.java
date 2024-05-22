@@ -2,16 +2,27 @@ package com.example.fsabackend;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import java.util.List;
 
 @Entity
 @Data
 @Table(name="users")
 public class Users {
+
+    public Users(List<String> items) {
+
+        this.username = items.get(0);
+        this.password = items.get(1);
+        this.email = items.get(2);
+    }
     @Id
     @Column(name="ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="Username")
