@@ -3,6 +3,7 @@ import { Link} from "react-router-dom"
 import React,{ useState } from "react"
 import {useNavigate} from 'react-router-dom';
 import Cookies from 'js-cookie';
+import axios from "axios";
 
 export const Loginpage=()=>{
         const [name,setName]=useState(" ");
@@ -17,21 +18,35 @@ export const Loginpage=()=>{
         function UpdatePassword(e){
             setPassword(e.target.value)
        }
-        const Validateloginuser=(event)=>{
-              event.preventDefault();
-              console.log(name)
-              console.log(password)  
-              Cookies.set("username", {name}, { expires: 7,
-              sameSite: 'Lax', 
-              secure: true});
-            //   if(API(name,password)){
-            //     navigate('/Body');
-            //   }
-            //   else{
-            //        setMessage("Invalid Credentials")
-            //   }
-              
-            
+        const Validateloginuser=async(event)=>{
+              event.preventDefault(); 
+
+              try{
+                const response = await axios.post('http://localhost:8080/signup/login', [name,password], {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if(response.data==1){
+                    Cookies.set("username", {name}, { expires: 7,
+                        sameSite: 'None', 
+                        secure: true});
+                        navigate('/Body');
+                }
+                else if(response.data==404){
+                    setMessage("Invalid Credentials")
+                }
+                else if(response.data==400){
+                    setMessage("User Not Found")
+                }
+                else{
+                    setMessage("Please Try Later")
+                }
+              }
+              catch(error){
+                setMessage("Server Busy...Try Again Later")
+              }
+                  
        }
 
        return(
@@ -41,8 +56,8 @@ export const Loginpage=()=>{
                         <h2>Login</h2>
                         <form onSubmit={Validateloginuser} method="POST">
                         <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <input type="text" id="username" name="username" onChange={UpdateName} required placeholder="Enter your username" />
+                            <label htmlFor="username">Email</label>
+                            <input type="text" id="username" name="username" onChange={UpdateName} required placeholder="Enter your Email" />
                         </div>
                         <div className="form-group">
                             <label htmlFor="password">Password</label>

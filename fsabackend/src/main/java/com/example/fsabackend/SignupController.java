@@ -29,6 +29,43 @@ public class SignupController {
             System.err.println(e);
             return ResponseEntity.ok(500);
         }
-    }   
+    }
+    
+    
+
+
+    @PostMapping("/login")
+    public ResponseEntity<Integer> loginUser(@RequestBody List<String> items) {
+    
+        try{
+            Users user =userRepository.findByEmail(items.get(0));
+
+            System.out.println(user);
+            
+            if (user != null) {
+                String userPassword = user.getPassword();
+               
+                if(userPassword.equals(items.get(1))){
+                    
+                    return ResponseEntity.ok(1);
+                }
+                else{
+                    return ResponseEntity.ok(404);
+                }
+                
+            } else {
+                return ResponseEntity.ok(400);
+            }
+
+           
+            // userRepository.findAll(email=items.get(0))
+            
+        }
+        catch(Exception e){
+            System.err.println(e);
+            return ResponseEntity.ok(500);
+        }
+    }
+
 
 }

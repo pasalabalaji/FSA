@@ -14,6 +14,8 @@ import java.util.List;
 @Table(name="users")
 public class Users {
 
+    public Users() {
+    }
     public Users(List<String> items) {
 
         this.username = items.get(0);

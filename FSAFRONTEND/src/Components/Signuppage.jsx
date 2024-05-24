@@ -40,14 +40,14 @@ export const Signuppage=()=>{
                     },
                 });
                 console.log(response.data);
-                if(response.data==500){
-                    setMessage('Please signup with another email or try again...');
+                if(response.data==1){
+                    Cookies.set("username", {email}, { expires: 7,
+                        sameSite: 'None', 
+                        secure: true});
+                        navigate('/Body');
                 }
                 else{
-                    Cookies.set("username", {username}, { expires: 7,
-                    sameSite: 'None', 
-                    secure: true});
-                    navigate('/Body');
+                    setMessage('Please signup with another email or try again...');
                 }
             } catch (error) {
                 setMessage('Error sending items', error);
