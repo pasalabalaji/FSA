@@ -21,6 +21,7 @@ public class Users {
         this.username = items.get(0);
         this.password = items.get(1);
         this.email = items.get(2);
+        this.UID=items.get(3);
     }
     @Id
     @Column(name="ID")
