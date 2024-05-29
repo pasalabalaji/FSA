@@ -57,11 +57,11 @@ public class Users {
         this.username = username;
     }
 
-    public String getUid() {
+    public String getUID() {
         return UID;
     }
 
-    public void setUid(String uid) {
+    public void setUID(String uid) {
         this.UID = uid;
     }
 }

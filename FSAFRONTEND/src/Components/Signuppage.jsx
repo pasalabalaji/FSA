@@ -40,8 +40,12 @@ export const Signuppage=()=>{
                     },
                 });
                 console.log(response.data);
-                if(response.data==1){
-                    Cookies.set("username", {email}, { expires: 7,
+                const UID=response.data
+                if(response.data.length>=1){
+                    Cookies.set("UID", JSON.stringify({ UID }), { expires: 7,
+                        sameSite: 'None', 
+                        secure: true});
+                    Cookies.set("username", JSON.stringify({ email }), { expires: 7,
                         sameSite: 'None', 
                         secure: true});
                         navigate('/Body');

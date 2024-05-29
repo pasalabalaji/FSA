@@ -9,6 +9,8 @@ export const Navbar = () => {
     const handleLogout = (event) => {
         event.preventDefault(); 
         Cookies.remove('username'); 
+        Cookies.remove('email');
+        Cookies.remove('UID');
         navigate('/'); 
       };
     const [isOpen, setIsOpen] = useState(false);

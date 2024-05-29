@@ -27,20 +27,19 @@ export const Loginpage=()=>{
                         'Content-Type': 'application/json',
                     },
                 });
-                if(response.data==1){
-                    Cookies.set("username", {name}, { expires: 7,
+                console.log(response.data)
+                if(response.data.length>=1){
+                    const UID=response.data;
+                    Cookies.set("username", JSON.stringify({name}), { expires: 7,
                         sameSite: 'None', 
                         secure: true});
-                        navigate('/Body');
-                }
-                else if(response.data==404){
-                    setMessage("Invalid Credentials")
-                }
-                else if(response.data==400){
-                    setMessage("User Not Found")
+                    Cookies.set("UID", JSON.stringify({UID}), { expires: 7,
+                        sameSite: 'None', 
+                        secure: true});
+                    navigate('/Body');
                 }
                 else{
-                    setMessage("Please Try Later")
+                    setMessage("Enter Valid Credentials And Please Try Later")
                 }
               }
               catch(error){

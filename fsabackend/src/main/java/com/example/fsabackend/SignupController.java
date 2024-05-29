@@ -38,18 +38,19 @@ public class SignupController {
     @Autowired
     private UserRepository userRepository;
     @PostMapping("/save")
-    public ResponseEntity<Integer> saveItems(@RequestBody List<String> items) {
+    public ResponseEntity<String> saveItems(@RequestBody List<String> items) {
     
         try{
-            items.add(generateUID(items.get(0),items.get(1),items.get(2)));
+            String UID=generateUID(items.get(0),items.get(1),items.get(2));
+            items.add(UID);
             Users user=new Users(items);
             System.out.println("Received items: " + items);
             userRepository.save(user);
-            return ResponseEntity.ok(1);
+            return ResponseEntity.ok(UID);
         }
         catch(Exception e){
             System.err.println(e);
-            return ResponseEntity.ok(500);
+            return ResponseEntity.ok("");
         }
     }
     
@@ -57,26 +58,27 @@ public class SignupController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Integer> loginUser(@RequestBody List<String> items) {
+    public ResponseEntity<String> loginUser(@RequestBody List<String> items) {
     
         try{
             Users user =userRepository.findByEmail(items.get(0));
 
-            System.out.println(user);
+           
             
             if (user != null) {
                 String userPassword = user.getPassword();
-               
+                // System.out.println(items.get(1)+" : "+userPassword);
+                // System.out.println(userPassword.equals(items.get(1)));
                 if(userPassword.equals(items.get(1))){
-                    
-                    return ResponseEntity.ok(1);
+                    System.out.println(user.getUID());
+                    return ResponseEntity.ok(user.getUID());
                 }
                 else{
-                    return ResponseEntity.ok(404);
+                    return ResponseEntity.ok("");
                 }
                 
             } else {
-                return ResponseEntity.ok(400);
+                return ResponseEntity.ok("");
             }
 
            
@@ -85,7 +87,7 @@ public class SignupController {
         }
         catch(Exception e){
             System.err.println(e);
-            return ResponseEntity.ok(500);
+            return ResponseEntity.ok("");
         }
     }
 
