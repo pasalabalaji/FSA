@@ -38,6 +38,9 @@ export const Navbar = () => {
                     <li className="nav-item">
                         <Link to="/" style={{ textDecoration: 'none' }} className="nav-links" onClick={handleLogout}>Logout</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link to="/body" style={{ textDecoration: 'none' }} className="nav-links">Home</Link>
+                    </li>
                 </ul>
             </div>
         </nav>

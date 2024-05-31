@@ -46,7 +46,7 @@
 //         )
  
 // }
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useMemo } from 'react';
 import Cookies from 'js-cookie';
 import { Navbar } from "./Navbar.jsx";
 import { Footer } from "./Footer.jsx";
@@ -60,7 +60,7 @@ export const Profile = () => {
     useEffect(() => {
         const storedUsername = Cookies.get('username');
         const storedUid = Cookies.get('UID');
-
+        console.log(storedUsername);
         if (storedUsername) {
             try {
                 const parsedUsername = JSON.parse(storedUsername);

@@ -13,5 +13,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
                 .allowCredentials(true); // Allow sending cookies
+
+        registry.addMapping("/sharefile/**") // Restrict the mapping to your API endpoints
+        .allowedOrigins("http://localhost:5173") // Allow requests from your React frontend
+        .allowedMethods("GET", "POST", "PUT", "DELETE")
+        .allowedHeaders("*")
+        .allowCredentials(true); 
     }
 }

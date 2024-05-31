@@ -67,6 +67,7 @@ public class SignupController {
             
             if (user != null) {
                 String userPassword = user.getPassword();
+                // System.out.println(user);
                 // System.out.println(items.get(1)+" : "+userPassword);
                 // System.out.println(userPassword.equals(items.get(1)));
                 if(userPassword.equals(items.get(1))){
