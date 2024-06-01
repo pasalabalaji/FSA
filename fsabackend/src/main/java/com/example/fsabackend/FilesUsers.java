@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name="files")
-public class Files {
+public class FilesUsers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,6 +24,15 @@ public class Files {
     private String receiverUid;
 
     // Getters and Setters
+
+    public FilesUsers(){
+        
+    }
+   public FilesUsers(Users user,String filename,String recieverid){
+          this.sender=user;
+          this.filename=filename;
+          this.receiverUid=recieverid;
+   }
 
     public Long getId() {
         return id;

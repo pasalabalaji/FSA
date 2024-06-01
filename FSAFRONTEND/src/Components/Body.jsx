@@ -274,10 +274,20 @@ useEffect(() => {
 
       if (response.data === 1) {
         setMessage('File shared successfully.');
-      } else {
-        setMessage('Failed to share file.');
+      } else if(response.data === 404) {
+        setMessage('Reciever Not Found.');
+      }
+      else if(response.data === 1000) {
+        setMessage('You Had Already Shared This File');
+      }
+      else if(response.data === 420) {
+        setMessage('Response Number 420: Why are you sharing file yourself??');
+      }
+      else{
+        setMessage('Please Try Later.');
       }
     } catch (error) {
+      console.log(error)
       setMessage(`Error sending items: ${error.response ? error.response.data : error.message}`);
     }
 

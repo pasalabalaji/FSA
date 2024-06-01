@@ -21,6 +21,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
 import java.nio.file.Files;
+import com.example.fsabackend.Users;
+
+import jakarta.persistence.Tuple;
+
+import java.util.List;
+
+
 
 // @Service
 // @RestController
@@ -42,19 +49,48 @@ public class filesharingController {
 
    
     private String uploadDir="src/main/resources/static/uploads/";
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private FilesUsersRepositary filesRepositary;
 
     @PostMapping("/share")
-    public ResponseEntity<String> shareFile(
+    public ResponseEntity<Integer> shareFile(
             @RequestParam("uid") String uid,
             @RequestParam("receiverId") String receiverId,
             @RequestParam("file") MultipartFile file) {
         try{
-            Path path = Paths.get(uploadDir +uid+receiverId+file.getOriginalFilename());
-            Files.write(path, file.getBytes());
-            return ResponseEntity.ok("1");
+            Users reciever =userRepository.findByUID(receiverId);
+            if(uid.equals(receiverId)){
+                return  ResponseEntity.ok(420);
+            }
+            if(reciever==null){
+                return ResponseEntity.ok(404);  
+            }
+            else{
+                Path path = Paths.get(uploadDir +uid+receiverId+file.getOriginalFilename());
+                Files.write(path, file.getBytes());
+                   
+                // FilesUsers files=new FilesUsers(userRepository.findByUID(uid),uid+receiverId+file.getOriginalFilename(),receiverId);
+                // filesRepositary.save(files);
+                // return ResponseEntity.ok(1);
+                String fname=uid+receiverId+file.getOriginalFilename();
+                List<FilesUsers> filesuploaded=filesRepositary.findByFilename(fname);
+                if(filesuploaded.size()>0){
+                    
+                    return ResponseEntity.ok(1000);
+                }
+                else{
+                    FilesUsers files=new FilesUsers(userRepository.findByUID(uid),uid+receiverId+file.getOriginalFilename(),receiverId);
+                    filesRepositary.save(files);
+                    return ResponseEntity.ok(1);
+                }
+
+            }
         }catch (IOException e) {
             System.out.println(e);
-            return ResponseEntity.ok("0");
+            return ResponseEntity.ok(0);
         }
         
     }
