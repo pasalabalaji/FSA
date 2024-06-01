@@ -60,6 +60,7 @@ export const Profile = () => {
     useEffect(() => {
         const storedUsername = Cookies.get('username');
         const storedUid = Cookies.get('UID');
+        
         console.log(storedUsername);
         if (storedUsername) {
             try {

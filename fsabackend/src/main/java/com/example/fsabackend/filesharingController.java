@@ -1,6 +1,8 @@
 package com.example.fsabackend;
 
+import java.nio.file.Paths;
 import java.util.List;
+
 
 import org.apache.tomcat.util.json.JSONParserConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.IOException;
+import java.nio.file.Files;
 
 // @Service
 // @RestController
@@ -33,18 +40,22 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/sharefile")
 public class filesharingController {
 
+   
+    private String uploadDir="src/main/resources/static/uploads/";
+
     @PostMapping("/share")
     public ResponseEntity<String> shareFile(
             @RequestParam("uid") String uid,
             @RequestParam("receiverId") String receiverId,
             @RequestParam("file") MultipartFile file) {
-        
-        // Process the file and parameters here
-        // For example, save the file and update the database
-        System.out.println(uid+""+receiverId+""+file.getOriginalFilename());
-        System.out.println("working");
-        // Return success response
-        return ResponseEntity.ok("1");
+        try{
+            Path path = Paths.get(uploadDir +uid+receiverId+file.getOriginalFilename());
+            Files.write(path, file.getBytes());
+            return ResponseEntity.ok("1");
+        }catch (IOException e) {
+            System.out.println(e);
+            return ResponseEntity.ok("0");
+        }
         
     }
 }
