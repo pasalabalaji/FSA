@@ -1,8 +1,9 @@
 package com.example.fsabackend;
 
+
 import java.nio.file.Paths;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 import org.apache.tomcat.util.json.JSONParserConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,16 @@ import jakarta.persistence.Tuple;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 // @Service
 // @RestController
@@ -42,6 +52,7 @@ import java.util.List;
 //         return ResponseEntity.ok(1);
 //     }
 // }
+
 
 @RestController
 @RequestMapping("/sharefile")
@@ -94,4 +105,23 @@ public class filesharingController {
         }
         
     }
+
+    @PostMapping("/getFiles")
+    public ResponseEntity<List<FileDTO>> getFiles(@RequestBody Map<String, String> request) {
+       
+        String uid = request.get("uid");
+        System.out.println(uid);
+        List<FilesUsers> filesList = filesRepositary.findByReceiverUid(uid);
+        System.out.println("X"+filesList);
+        List<FileDTO> fileDTOs = filesList.stream()
+            .map(file -> new FileDTO(
+                file.getFilename(), 
+                file.getSender().getUsername()  
+            ))
+            .collect(Collectors.toList());
+        System.out.println("working...");
+        System.out.println(fileDTOs);
+        return ResponseEntity.ok(fileDTOs);
+    }
+
 }
